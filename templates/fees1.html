@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>fes</title>
+	<style>
+		h1{
+			color: red;
+			text-align: center;
+			font-size: 50px;
+
+		}
+	</style>
+</head>
+<body>
+<h1>Search By Name</h1>
+<form action="{{ url_for('add_fee1') }}" method = "post">
+ <span style="color:green;font-size: 25px;text-align: center;margin-left:500px">Enter name:<input type="text" name = "feename" placeholder="name" >
+ <button>Submit</button></span>
+</body>
+</html>

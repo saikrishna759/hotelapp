@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>details</title>
+	<style>
+	 a{
+	 	text-decoration: none;
+	 	font-size: 18px;
+	    color: green;
+	 }
+	  form{
+	  	color:red;
+	  	font-size: 22px;
+	  	text-align: center;
+	  	vertical-align: middle;
+	  	font-size-adjust:
+	  }
+	
+	.radius{
+		height: 18px;
+		width: 150px;
+	}
+	.radius1{
+		margin-left: 40px;
+
+		
+	}	
+</style>
+</head>
+<body>
+	<h1 style = "color:green;text-align: center;"> STUDENT APPLICATION</h1>
+<form action = "{{ url_for('insert') }}" method = "post">
+    
+   <div style="text-align: center;">Identity Number:<input type="number" name="identity" placeholder= "{{prev_id}}" value="{{prev_id}}" disabled="disabled" style="text-align: center;"> </div><br>
+   student name:<input type="text" name = "name" placeholder="student name" class="radius">
+   <span class="radius1">  father name:<input type="text" name = "f_name" placeholder="father name" class = "radius"></span><br><br>
+
+   student num :<input type="text" name = "Sphone" placeholder="phone number" class = "radius" maxlength="10" minlength="10">
+   
+    <span class="radius1">father num :<input type="text" name = "Fphone" autocomplete="off" autofocus placeholder="phone number" maxlength="10" minlength="10"></span><br><br>
+   Date of Join : <input type="date" data-date-inline-picker="true" name = "doj" placeholder="2012-10-17"class = "radius">
+   <span class="radius1">college  :<input type="text" name = "college" placeholder="college name"></span><br><br>
+   Aadhar num :<input type="text" name = "Aadhar" placeholder="Aadhar number" class = "radius" minlength="12" maxlength="12"><a href ="http://uidai.gov.in/" target="_blank"> verify</a>
+   <span class="radius1"> Age :<input type="number" name = "age" placeholder="age"></span><br><br>
+   Email Address :<input type= "text" name = "email" placeholder="Emailid@gmail.com" class = "radius" style="width: 200px">
+   <span class="radius1">Address :<input type= "text" name = "address" placeholder="Address"style = "height: 25px;width:200px;"></span><br><br>
+   <span style="margin-right: 10px;margin-left: 200px">advance fee :<input type="number" name = "advance" placeholder="fee paid" class="radius"></span>
+   <span class="radius1" style="margin-left: 50px; "> Room Availability:<!--<input type="number" name = "room" placeholder="Room">--><select style="color:green;width:200px">
+   	<option>101 --> {{R101}}</option><option>102 --> {{R102}}</option><option>103 --> {{R103}}</option><option>201 --> {{R201}}</option><option>202 --> {{R202}}</option><option>203 --> {{R203}}</option>
+   	<option>301 --> {{R301}}</option><option>302 --> {{R302}}</option><option>303 --> {{R303}}</option>
+   </select></span><input type="number" name = "room" placeholder="Room" style ="width: 60px"><br><br>
+   <div style ="text-align: center;">Packages :<select name="fee_package" style="width: 180px">
+   	   	<option>1</option>
+   	   	<option>6</option>
+   	   	<option>12</option>
+   	   </select></div><br>
+   <span style="text-align: center;margin-left: 60px"><button style = "text-align: center;">Submit</button></span>
+	<!--<span style = "text-align: right;margin-left: 200px">image : <input type = "text" name = "Image" placeholder="Image" style="width:70px;height: 70px;text-align:center;"></span>-->
+	
+</form>
+</body>
+</html>

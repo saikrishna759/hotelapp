@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SAIKRISHNA BOYS HOSTEL</title>
+<style>
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse:collapse ;
+    width: 50%;
+}
+
+td, th {
+    border:1px solid #dddddd ;
+    text-align: left;
+    padding: 20px;
+    cell spacing: 200px;
+}
+table#t01 {
+    width: 50%;    
+    background-color: #f1f1c1;
+}
+h2{ background-color:powderblue;}
+</style>
+</head>
+<body>
+<script>
+function building(loc){
+var pic;
+elem= document.getElementById('hostel');
+if(loc ==1)
+{
+elem.src="https://lh5.googleusercontent.com/p/AF1QipM4M5VUSxBIFPvnmeOB5po3CIfAngBgSWsVeBM2=w120-h160-k-no";
+}
+else
+{
+elem.src="https://2.bp.blogspot.com/-2YMENEQGL5I/W_jOI-6ZEyI/AAAAAAAALjA/95kcFf8P6NkgyhmMzfd-CHdhAivFSAxYQCLcBGAs/s320/5.jpeg";
+}
+
+}
+</script>
+<table id ="t01">
+<caption><marquee><h2 style= "color:red"><i>*********<ins>SAIKRISHNA BOYS HOSTEL {{name}}</ins>**********</i></h2></marquee></caption>
+  <tr>
+     <th>id</th>
+     <th>name</th>
+     <th>f_name</th>
+     <th>doj</th>
+     <th>phone</th>
+     <th colspan = "2">payment</th>
+     <th>photo</th>
+  </tr>
+  <tr>
+     <td>501</td>
+     <td>saikrishna</td>
+     <td>anilbabu</td>
+     <td>2018-05-05</td>
+     <td>9573357025</td>
+     <td>3800</td>
+     <td>200</td>
+     <td><p title= "saikrishna"><img src ="C:\Users\saikrishna\Desktop\voterid\PASS PHOTO.jpg" alt = "saiphoto" style="width:50px;height=50px;" ></td>
+  </tr>
+  <tr>
+     <td>502</td>
+     <td>sunny</td>
+     <td>anilbabu</td>
+     <td>2016-05-05</td>
+     <td>9505177655</td>
+     <td>3900</td>
+     <td>100</td>
+     <td><p title= "sunny"><img src ="C:\Users\saikrishna\Desktop\voterid\1.jpg" alt = "saiphoto" style="width:50px;height=50px;" ></td>
+  </tr>
+   
+      <img id ="hostel" src="C:\Users\saikrishna\Desktop\voterid\3.jpeg" align=right width="300" height ="580">
+      <p><button type = "button" onclick="building(1)">bnreddy</button>
+       <button type = "button" onclick="building(0)">sherguda</button>
+    <a href = "file:///C:/Users/saikrishna/Desktop/HTML/hosteltab.html" target="iframe_a" >show_website</a>
+    <a href ="https://www.youtube.com/embed/tgbNymZ7vqY"target="iframe_a">show original</a></p>
+     <iframe id = fram width="1000" heght="1800" src="https://www.youtube.com/embed/tgbNymZ7vqY" name="iframe_a"></iframe>
+<p><button type = "button" onclick="small()">small</button>
+<button type = "button" onclick="large()">large</button>
+<button type = "button" onclick="normal()">normal</button>
+</p>
+
+<button onclick="getLocation()">location</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+<script>
+     var myframe1=document.getElementById("fram");
+
+      function small()
+{
+    myframe1.width=300;
+}
+      function large()
+{
+    myframe1.width=1000;
+}
+      function normal()
+{
+    myframe1.width=600;
+}
+
+</script>
+        
+        
+  <tr>
+     <td>503</td>
+     <td>navya</td>
+     <td>anilbabu</td>
+     <td>2015-05-05</td>
+     <td>8463936667</td>
+     <td>4000</td>
+     <td>null</td>
+     <td><p title= "navya"><img src ="C:\Users\saikrishna\Desktop\voterid\2.jpg" alt = "saiphoto" style="width:50px;height=50px;" ></td>
+  </tr>
+  <tr>
+     <form>
+     <td><input type = "radio" name= "gender" value="503">503<br><input type = "radio" name= "gender" value="504">504</td>
+     <td><input type= "text" name="Name" value="owner"><br><input type ="reset"></td>
+     <td><input type= "text" name="f_Name" value="nagraju"><input type ="reset"></td>
+     <td><select>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          </select>
+          <select>
+          <option value="january">january</option>
+          <option value="febraury">febraury</option>
+          <option value="march">march</option>
+          <option value="april">april</option>
+          <option value="may">may</option>
+          <option value="june">june</option>
+          <option value="july">july</option>
+          <option value="august">august</option>
+          <option value="september">september</option>
+          <option value="october">october</option>
+          </select>
+          <select>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          </select>
+
+     </td>
+     <td>8463936667</td>
+     <td>4000</td>
+     <td>null</td>
+     <td><p title= "owner"><img src ="C:\Users\saikrishna\Desktop\voterid\3.jpeg" alt = "saiphoto" style="width:50px;height=50px;" ></td>
+  </tr>
+</table>
+<ol>
+  <li><p><a href= "http://sunnysmartlearn.blogspot.com/" target="_blank">saikrishna blog</a></p></li>
+</ol>
+<p id="demo"><marquee><p style = "color:red;background-color:yellow;">PLEASE LIKE US</p></marquee></p>
+
+<button type = "button" onclick= "myfunction()">like</button>
+
+<script>
+  function myfunction(){
+    
+    document.getElementById("demo");
+    document.getElementById("demo").style.color="red";
+    document.getElementById("demo").style.backgroundColor="yellow";
+    document.getElementById("demo").innerHTML = "<marquee behavior='scroll' direction='right'>THANKS FOR LIKINGG US!</marquee>" 
+    
+        
+  
+     
+
+}
+</script>
+
+</body>
+</html>  

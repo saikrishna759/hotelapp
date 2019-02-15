@@ -1,0 +1,71 @@
+
+<html>
+<head>
+	<title>insertion</title>
+	<style>
+	table {
+    font-family: arial, sans-serif;
+    border-collapse:collapse ;
+    width: 30%;
+}
+
+td, th {
+    border:1px solid #dddddd ;
+    text-align: left;
+    padding: 20px;
+    cell spacing: 200px;
+}
+table#t01 {
+    width: 50%;    
+    background-color: #f1f1c1;
+}
+h1{ background-color:powderblue;}
+</style>
+
+</head>
+<body>
+<h1>CUSTUMER INSERTED</h1>
+<table id ="t01">
+	<tr>
+	 <th>id</th>	
+     <th>sname</th>
+     <th>fname</th>
+     <th>sphone</th>
+     <th>fphone</th>
+     <th>DOJ</th>
+     <th>college</th>
+     <th>Aadhar</th>
+     <th>Age</th>
+     <th>Email</th>
+     <th>Address</th>
+     <th>Advance</th>
+     <th>Room</th>
+     <th>packages</th>
+     <th>image</th>
+  </tr>
+
+
+{% for ins in insert %}
+ <tr>
+   <td>{{ins.id}}</td>
+   <td>{{ins.name}}</td>
+   <td>{{ins.f_name}}</td>
+   <td>{{ins.student_no}}</td>
+   <td>{{ins.parent_no}}</td>
+   <td>{{ins.doj}}</td>
+   <td>{{ins.college}}</td>
+   <td>{{ins.aadhar}}</td>
+   <td>{{ins.age}}</td>
+   <td>{{ins.email}}</td>
+   <td>{{ins.Adress}}</td>
+   <td>{{ins.advance}}</td>
+   <td>{{ins.room}}</td>
+   <td>{{ins.package}}</td>
+
+   <td><img src = "{{ins.imag}}" alt = "{{ins.name}}" width="80%" height="15%"></td>
+ </tr>   
+{% endfor %}
+
+
+</body>
+</html>

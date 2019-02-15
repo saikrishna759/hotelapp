@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ee</title>
+	<style>
+		form{
+	  	color:red;
+	  	font-size: 22px;
+	  	text-align: center;
+	  	vertical-align: middle;
+	  	font-size-adjust:
+	  }
+	</style>
+</head>
+<body>
+ <h1 style="color: green;text-align: center;">FEE DETAILS</h1><br>
+
+   <form action="{{url_for('add_fee3') }}" method="post">
+   	 <div style="text-align: center;">Identity Number:<input type="number" name="fee_id" placeholder="{{see1.id}}"value="{{see1.id}}" readonly="readonly" style="text-align: center;"> </div><br>
+   	  <div style="text-align: center;">Student Name:<input type="text" name="fee_name" placeholder="{{see1.name}}"value="{{see1.name}}" readonly="readonly" style="text-align: center;"> </div><br>
+   	   <div style="text-align: center;">Last Balance:<input type="number" name="fee_balance" placeholder="{{totbal}}"value="{{totbal}}" readonly="readonly" style="text-align: center;"> </div><br>
+   	   <div style="text-align: center;">Date of Payment:<input type="date" data-date-inline-picker="true" name="dop" placeholder="date of pay" style="text-align: center;" /></div><br>
+   	   <div style="text-align: center;">package:<input type="number" name="fee_pack" placeholder="{{see1.package}}"value="{{see1.package}}" readonly="readonly" style="text-align: center;"> </div><br>
+   	   <div style= "text-align: center;">mode of payment:<select name="mop">
+   	   	<option>By cash</option>
+   	   	<option>paytm</option>
+   	   	<option>tez</option>
+   	   	<option>phone pay</option>
+   	   	<option>bank accounts</option>
+   	   </select></div><br>
+   	   
+   	   <div style="text-align: center;">Remarks:<input type="text" name="remark" placeholder="enter remarks"></div><br>
+
+   	   
+   	 <div style="text-align: center;">Fees Paid:<input type="number" name="fee_paid" placeholder="amount" style="text-align: center;"> </div><br>
+   	    <button>update</button>
+</form>
+
+
+  
+</body>
+</html>

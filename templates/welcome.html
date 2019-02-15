@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>welcome</title>
+<link rel="stylesheet" type="text/css" href="well.css">
+	<style>
+	*
+
+	{
+		margin-left:2px;
+		margin-right:0px;
+
+		padding: 0px;
+	}
+     h2{
+     	color: red;
+     	text-align: center;
+     }
+		#list ul
+	
+{
+   
+list-style: none;
+}
+#list ul li
+{
+	
+	background-color:#4CAF50;
+	border: 1px solid white;
+	text-align: center;
+	width:265px;
+	height:50px;
+	line-height: 50px;
+	float:left;
+	position: relative;
+	
+}
+#list ul li a
+{
+   text-decoration: none;
+   color: white;
+   font-size: 20px;
+   display: block;
+
+}
+#list ul li a:hover
+{
+	background-color:#5F5F5F;
+	display:block;
+
+}
+#list ul li:hover > ul
+{
+	display: block;
+	background-color: blue;
+}
+#list ul li > ul 
+{
+	display:none;
+}
+	</style>
+</head>
+
+<body>
+	<h2>WELCOME ,{{name}}!</h2>
+
+	
+	<div id = "list">
+		<ul>
+			<li><a href = "#">STUDENTS</a>
+            <ul>
+	       <li><a href = "{{ url_for('add') }}">ADD CUSTUMER </a></li>
+	       <li><a href = "{{ url_for('index') }}">UPDATE CUSTUMER </a></li>
+	       <li><a href = "{{ url_for('index') }}">DELETE CUSTUMER </a></li>
+	       
+	   </ul>
+	</li>
+	<li><a href = "#">FEE DETAILS</a>
+		<ul>
+			<li><a href = "{{ url_for('add_fee') }}">ADD FEE</a></li>
+			<li><a href = "#">UPDATE FEE</a></li>
+			<li><a href = "#">MONTH WISE LIST</a></li>
+			<li><a href = "#">INFORMATION</a></li>
+		</ul>
+		</li>
+
+	<li><a href = "#">SEARCH CUSTUMER</a>
+		<ul>
+            	<li><a href="{{ url_for('by_name') }}">SEARCH BY NAME</a></li>
+            	<li><a href="#"> SEARCH BY BALANCE</a></li>
+            	<li><a href="#">SEARCH BY DATE</a></li>
+            	<li><a href="{{ url_for('search') }}">SEARCH ALL</a></li>
+            </ul>
+
+		</li>	
+    <li><a href = "#">MANAGEMENT</a>
+         <ul>
+			<li><a href = "#">GROCERIES</a></li>
+			<li><a href = "#">BILLS</a></li>
+			<li><a href = "#">FINANCE</a></li>
+			<li><a href = "#">REMEMBERS</a></li>
+		</ul>
+	    </li>				
+
+	<li><a href = "#">CONTACT US</a>
+		<ul>
+			<li><a href = "#">EMAIL</a></li>
+			<li><a href = "#">PHONE</a></li>
+			<li><a href = "#">LANDLINE</a></li>
+			<li><a href = "#">ABOUT US</a></li>
+		</ul>
+		</li>	
+	
+	
+	
+	    </ul>
+	</div>       
+
+</body>
+</html>

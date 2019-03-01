@@ -109,21 +109,9 @@ def insert():
     Advance = request.form.get("advance")
     Room = request.form.get("room")
     pack123 = request.form.get("fee_package")
-    c101 = db.execute("select count(room) from custumer where room = 101")
-    c102 = db.execute("select count(room) from custumer where room = 102")
     date2 = datetime.strptime(DOJ, "%Y-%m-%d")
-    dl.append(date(date2.year,1,date2.day))
-    dl.append(date(date2.year,2,date2.day))
-    dl.append(date(date2.year,3,date2.day))
-    dl.append(date(date2.year,4,date2.day))
-    dl.append(date(date2.year,5,date2.day))
-    dl.append(date(date2.year,6,date2.day))
-    dl.append(date(date2.year,7,date2.day))
-    dl.append(date(date2.year,8,date2.day))
-    dl.append(date(date2.year,9,date2.day))
-    dl.append(date(date2.year,10,date2.day))
-    dl.append(date(date2.year,11,date2.day))
-    dl.append(date(date2.year,12,date2.day))
+    for i in range(1,13):
+        dl.append(date(date2.year,i,date2.day))
     #imag1 = request.form.get("Image")
     #img = "/static/IMAGES/"+str(imag1)+".jpg"
     prev_id1 = db.execute("select max(id)+1 from custumer").fetchone()
@@ -140,8 +128,6 @@ def search():
     return render_template("insert.html",insert = inserted)
 @app.route("/add_fee",methods=["GET","POST"])    
 def add_fee():
-   # feename = request.form.get('newfee')
-    #cust = db.execute("select id,name,doj,student_no,parent_no,advance,room,balance,packages from custumer join fee on custumer.id = fee.id where name = :name",{"name":feename})
     return render_template('fees1.html')
 @app.route("/addfee",methods=["GET","POST"])    
 def add_fee1():
@@ -154,21 +140,8 @@ def add_fee1():
 def add_fee2():
     id1 = request.form.get("select123")
     see = db.execute("select id,name,package,doj from custumer where id= :id",{"id":id1}).fetchone()
-    bal1 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":1}).fetchone()
-    bal2 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":2}).fetchone()
-    bal3 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":3}).fetchone()
-    bal4 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":4}).fetchone()
-    bal5 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":5}).fetchone()
-    bal6 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":6}).fetchone()
-    bal7 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":7}).fetchone()
-    bal8 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":8}).fetchone()
-    bal9 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":9}).fetchone()
-    bal10 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":10}).fetchone()
-    bal11 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":11}).fetchone()
-    bal12 = db.execute("select balance from fee where id = :id and month=:month",{"id":id1,"month":12}).fetchone()     
-    total_balance = int(int(bal1[0])+int(bal2[0])+int(bal3[0])+int(bal4[0])+int(bal5[0])+int(bal6[0])
-                    +int(bal7[0])+int(bal8[0])+int(bal9[0])+int(bal10[0])+int(bal11[0])+int(bal12[0]))
-    return render_template('add12.html',see1 = see,totbal = total_balance)
+    bal1 = db.execute("select sum(balance) from fee where id = :id",{"id":id1}).fetchone()
+    return render_template('add12.html',see1 = see,totbal = bal1[0])
 
 @app.route('/welcome1',methods=["GET","POST"])
 def add_fee3():
@@ -207,23 +180,27 @@ def display_search():
     return render_template("displaysearch1.html",insert = search1)
 @app.route('/dispalysearch2',methods=["GET","POST"])
 def display_search2():
+     dict1 = {}
      id1 = request.form.get("select123")
      search2 = db.execute("select * from custumer where id = :id",{"id":id1}).fetchone()
-     smon1 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":1}).fetchone()
-     smon2 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":2}).fetchone()
-     smon3 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":3}).fetchone()
-     smon4 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":4}).fetchone()
-     smon5 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":5}).fetchone()
-     smon6 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":6}).fetchone()
-     smon7 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":7}).fetchone()
-     smon8 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":8}).fetchone()
-     smon9 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":9}).fetchone()
-     smon10 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":10}).fetchone()
-     smon11 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":11}).fetchone()
-     smon12 = db.execute("select * from fee where id = :id,month=:month",{"id":id1,"month":12}).fetchone()
-     tot_balan =int(smon1[1])+int(smon2[1])+int(smon3[1])+int(smon4[1])+int(smon5[1])+ int(smon6[1])+int(smon7[1])+int(smon8[1])+int(smon9[1])+int(smon10[1])+int(smon11[1])+int(smon12[1])
+     for i in range(1,13):
+         dict1[i] = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":i}).fetchone()
+         print(dict1[i])
+     smon1 = dict1[1]
+     smon2 = dict1[2]
+     smon3 = dict1[3]
+     smon4 = dict1[4]
+     smon5 = dict1[5]
+     smon6 = dict1[6]
+     smon7 = dict1[7]
+     smon8 = dict1[8]
+     smon9 = dict1[9]
+     smon10 = dict1[10]
+     smon11 = dict1[11]
+     smon12 = dict1[12]
+     tot_balan =db.execute("select sum(balance) from fee where id = :id",{"id":id1}).fetchone()
      return render_template('filter.html',nam=search2,m1=smon1,m2=smon2,m3=smon3,m4=smon4,m5=smon5,
-        m6=smon6,m7=smon7,m8=smon8,m9=smon9,m10=smon10,m11=smon11,m12=smon12,t_bal=tot_balan)
+        m6=smon6,m7=smon7,m8=smon8,m9=smon9,m10=smon10,m11=smon11,m12=smon12,t_bal=tot_balan[0])
 
 @app.route("/updatecus",methods = ["GET","POST"])
 def upcus():

@@ -20,9 +20,6 @@ class loginform(FlaskForm):
 @app.route("/")
 def index():
     form = loginform()
-    #if form.validate_on_submit():
-    #return render_template('welcome.html',name = form.username.data)
-    #else:
     return render_template('login1.html',form = form)
 @app.route("/welcome", methods=["POST"])
 def welcome():
@@ -80,7 +77,7 @@ def add():
     if (5 - c301[0])>0:
         R301 = str(5- c301[0])+" Beds Available"
     else:
-        R301 = "No Beds Available"
+        R301 = "No Beds Availables"
     #302    
     if (5 - c302[0])>0:
         R302 = str(5-c302[0])+" Beds Available"
@@ -117,7 +114,6 @@ def insert():
     prev_id1 = db.execute("select max(id)+1 from custumer").fetchone()
     img = "/static/IMAGES/"+str(prev_id1[0])+".jpg"
     db.execute("insert into custumer(id,name,f_name,doj,student_no,Adress,college,age,aadhar,parent_no,advance,room,email,imag,package) values(:id,:name,:f_name,:doj,:student_no,:Adress,:college,:age,:aadhar,:parent_no,:advance,:room,:email,:imag,:package)", {"id":prev_id1[0],"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"imag":img,"package":int(pack123)})
-    #inserted = db.execute("select * from custumer").fetchall()
     for i in range(0,12):
         db.execute("insert into fee(id,actualdate,month) values(:id,:actualdate,:month)",{"id":prev_id1[0],"actualdate":dl[i],"month":dl[i].month})
         db.commit()
@@ -132,9 +128,7 @@ def add_fee():
 @app.route("/addfee",methods=["GET","POST"])    
 def add_fee1():
     feename1 = request.form.get("feename")
-    #cust = db.execute("select custumer.id,custumer.name,custumer.doj,custumer.student_no,custumer.parent_no,custumer.advance,custumer.room,fee.balance,fee.packages from custumer  join fee on custumer.id = fee.id where name = :name",{"name":feename1}).fetchall()
     cust = db.execute("select * from custumer where name = :name",{"name":feename1}).fetchall()
-    #cust1 = db.execute("select * from custumer join fee").fetchall()
     return render_template("disfee.html",insert = cust)
 @app.route('/addfee2',methods=["GET","POST"])
 def add_fee2():
@@ -183,21 +177,18 @@ def display_search2():
      dict1 = {}
      id1 = request.form.get("select123")
      search2 = db.execute("select * from custumer where id = :id",{"id":id1}).fetchone()
-     for i in range(1,13):
-         dict1[i] = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":i}).fetchone()
-         print(dict1[i])
-     smon1 = dict1[1]
-     smon2 = dict1[2]
-     smon3 = dict1[3]
-     smon4 = dict1[4]
-     smon5 = dict1[5]
-     smon6 = dict1[6]
-     smon7 = dict1[7]
-     smon8 = dict1[8]
-     smon9 = dict1[9]
-     smon10 = dict1[10]
-     smon11 = dict1[11]
-     smon12 = dict1[12]
+     smon1 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":1}).fetchone()
+     smon2 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":2}).fetchone()
+     smon3 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":3}).fetchone()
+     smon4 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":4}).fetchone()
+     smon5 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":5}).fetchone()
+     smon6 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":6}).fetchone()
+     smon7 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":7}).fetchone()
+     smon8 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":8}).fetchone()
+     smon9 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":9}).fetchone()
+     smon10 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":10}).fetchone()
+     smon11 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":11}).fetchone()
+     smon12 = db.execute("select * from fee where id = :id and month=:month",{"id":id1,"month":12}).fetchone()
      tot_balan =db.execute("select sum(balance) from fee where id = :id",{"id":id1}).fetchone()
      return render_template('filter.html',nam=search2,m1=smon1,m2=smon2,m3=smon3,m4=smon4,m5=smon5,
         m6=smon6,m7=smon7,m8=smon8,m9=smon9,m10=smon10,m11=smon11,m12=smon12,t_bal=tot_balan[0])

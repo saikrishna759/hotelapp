@@ -106,16 +106,34 @@ def insert():
     Advance = request.form.get("advance")
     Room = request.form.get("room")
     pack123 = request.form.get("fee_package")
+    vno = request.form.get("v_no")
     date2 = datetime.strptime(DOJ, "%Y-%m-%d")
-    for i in range(1,13):
-        dl.append(date(date2.year,i,date2.day))
+    for i in range(int(date2.month),int(date2.month)+13):
+
+      if int(i/12) > 0 and i%12 > 0:
+        if  i%12==2 and date2.day>28:
+            dl.append(date(date2.year+1,i%12,28))
+        else:
+            dl.append(date(date2.year+1,i%12,date2.day))
+      else:
+        if  i==2 and date2.day>28:
+            dl.append(date(date2.year,i,28))
+        else:
+            dl.append(date(date2.year,i,date2.day))
+
+
+               
     #imag1 = request.form.get("Image")
     #img = "/static/IMAGES/"+str(imag1)+".jpg"
+   
     prev_id1 = db.execute("select max(id)+1 from custumer").fetchone()
-    img = "/static/IMAGES/"+str(prev_id1[0])+".jpg"
-    db.execute("insert into custumer(id,name,f_name,doj,student_no,Adress,college,age,aadhar,parent_no,advance,room,email,imag,package) values(:id,:name,:f_name,:doj,:student_no,:Adress,:college,:age,:aadhar,:parent_no,:advance,:room,:email,:imag,:package)", {"id":prev_id1[0],"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"imag":img,"package":int(pack123)})
+    if prev_id1 == None:
+        prev_id1 = 1
+    img1 = request.form.get('fileupload')
+    img = "/static/IMAGES/"+str(img1)
+    db.execute("insert into custumer(id,name,f_name,doj,student_no,Adress,college,age,aadhar,parent_no,advance,room,email,imag,package,vehicle_no) values(:id,:name,:f_name,:doj,:student_no,:Adress,:college,:age,:aadhar,:parent_no,:advance,:room,:email,:imag,:package,:vehicle_no)", {"id":prev_id1[0],"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"imag":img,"package":int(pack123),"vehicle_no":vno})
     for i in range(0,12):
-        db.execute("insert into fee(id,actualdate,month) values(:id,:actualdate,:month)",{"id":prev_id1[0],"actualdate":dl[i],"month":dl[i].month})
+        db.execute("insert into fee(id,actualdate,month,test) values(:id,:actualdate,:month,:test)",{"id":prev_id1[0],"actualdate":dl[i],"month":dl[i].month,"test":i+1})
         db.commit()
     return render_template("welcome.html")
 @app.route("/select_custumer", methods = ["GET","POST"])
@@ -163,7 +181,7 @@ def add_fee3():
     date1 = date(date0.year,date0.month,date0.day)
     db.execute("update fee set balance=:balance,feepaid=:feepaid,paiddate=:paiddate,modeofpayement=:modeofpayment,remarks=:remarks where id=:id and month=:month",{"balance":feebalance,"feepaid":feepaid,"paiddate":date1,"modeofpayment":modofpay,"remarks":remarked,"id":int(feeid),"month":date0.month})
     db.commit()   
-    return render_template('welcome1.html',paid = date1)
+    return render_template('welcome.html')
 @app.route('/byname',methods=["GET","POST"])
 def by_name():
     return render_template('byname.html')
@@ -192,10 +210,17 @@ def display_search2():
      tot_balan =db.execute("select sum(balance) from fee where id = :id",{"id":id1}).fetchone()
      return render_template('filter.html',nam=search2,m1=smon1,m2=smon2,m3=smon3,m4=smon4,m5=smon5,
         m6=smon6,m7=smon7,m8=smon8,m9=smon9,m10=smon10,m11=smon11,m12=smon12,t_bal=tot_balan[0])
-
-@app.route("/updatecus",methods = ["GET","POST"])
+@app.route("/updcus00",methods=["GET","POST"])    
 def upcus():
-    id3 = 25
+    return render_template('upcus001.html')
+@app.route("/updcus01",methods=["GET","POST"])    
+def upcus01():
+    feename1 = request.form.get("feename")
+    cust = db.execute("select * from custumer where name = :name",{"name":feename1}).fetchall()
+    return render_template("upcus002.html",insert = cust)
+@app.route("/updcus02",methods = ["GET","POST"])
+def upcus02():
+    id3 = request.form.get('select123')
     det = db.execute("select * from custumer where id= :id",{"id":id3}).fetchone()
     c101 = db.execute("select count(room) from custumer where room = 101").fetchone()
     c102 = db.execute("select count(room) from custumer where room = 102").fetchone()
@@ -269,14 +294,139 @@ def upcus2():
     Advance = request.form.get("advance")
     Room = request.form.get("room")
     pack123 = request.form.get("fee_package")
-    db.execute("update custumer set name=:name,f_name=:f_name,doj=:doj,student_no=:student_no,Adress=:Adress,college=:college,age=:age,aadhar=:aadhar,parent_no=:parent_no,advance=:advance,room=:room,email=:email,package=:package where id=:id",{"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"package":int(pack123),"id":id8})
-    db.commit()
+    vno = request.form.get("v_no")
+    date2 = datetime.strptime(DOJ, "%Y-%m-%d")
+    dp = []
+    for i in range(int(date2.month),int(date2.month)+13):
+      if int(i/12) > 0 and i%12 > 0:
+        if  i%12==2 and date2.day>28:
+            dp.append(date(date2.year+1,i%12,28))
+        else:
+            dp.append(date(date2.year+1,i%12,date2.day))
+      else:
+        if  i==2 and date2.day>28:
+            dp.append(date(date2.year,i,28))
+        else:
+            dp.append(date(date2.year,i,date2.day))
+    db.execute("update custumer set name=:name,f_name=:f_name,doj=:doj,student_no=:student_no,Adress=:Adress,college=:college,age=:age,aadhar=:aadhar,parent_no=:parent_no,advance=:advance,room=:room,email=:email,package=:package,vehicle_no=:vehicle_no where id=:id",{"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"package":int(pack123),"vehicle_no":vno,"id":id8})
+    for i in range(0,12):
+        db.execute("update fee set actualdate=:actualdate,month=:month where id=:id and test=:test",{"actualdate":dp[i],"month":dp[i].month,"id":id8,"test":i+1})
+        db.commit()
+    '''for i in range(0,12):
+        db.execute("insert into fee(id,actualdate,month,test) values(:id,:actualdate,:month,:test)",{"id":id8,"actualdate":dp[i],"month":dp[i].month,"test":i+1})
+        db.commit()'''    
     return render_template("welcome.html")
-@app.route("/deletecus",methods=["GET","POST"])
+@app.route("/delcus00",methods=["GET","POST"])    
 def delet():
-    id5 = 525
+    return render_template('delet001.html')
+@app.route("/delcus01",methods=["GET","POST"])    
+def delet01():
+    feename1 = request.form.get("feename")
+    cust = db.execute("select * from custumer where name = :name",{"name":feename1}).fetchall()
+    return render_template("delet002.html",insert = cust)    
+@app.route("/deletecus",methods=["GET","POST"])
+def delet02():
+    id5 = request.form.get("select123")
     db.execute("delete from custumer where id=:id",{"id":id5})
+    db.execute("delete from fee where id = :id",{"id":id5})
     db.commit()
     return render_template("welcome.html")
+@app.route("/upfees",methods = ["GET","POST"])
+def upfe():
+       return render_template('updfee.html')
+@app.route("/upfee1",methods=["GET","POST"])    
+def upd_fee1():
+    feename1 = request.form.get("feename")
+    cust = db.execute("select * from custumer where name = :name",{"name":feename1}).fetchall()
+    return render_template("updfee1.html",insert = cust)
+@app.route('/upfee2',methods=["GET","POST"])
+def upd_fee2():
+    id1 = request.form.get("select123")
+    mon = request.form.get("monthy")
+    if mon == "january":
+        mon1 = 1
+    elif mon == "febraury":
+        mon1 = 2
+    elif mon == "march":
+        mon1 = 3   
+    elif mon == "april":
+        mon1 = 4
+    elif mon == "may":
+        mon1 = 5
+    elif mon == "june":
+        mon1 = 6
+    elif mon == "july":
+        mon1 = 7
+    elif mon == "august":
+        mon1 = 8
+    elif mon == "september":
+        mon1 = 9
+    elif mon == "october":
+        mon1 = 10
+    elif mon == "november":
+        mon1 = 11
+    elif mon == "december":
+        mon1 = 12
+    see = db.execute("select id,name,package,doj from custumer where id = :id",{"id":id1}).fetchone()
+    seew = db.execute("select id,actualdate,paiddate,feepaid,modeofpayement,remarks from fee where id = :id and month = :month",{"id":id1,"month":mon1}).fetchone()
+    bal1 = db.execute("select sum(balance) from fee where id = :id",{"id":id1}).fetchone()
+    return render_template('updfee2.html',see1 = see,totbal = bal1[0],see2 = seew)
+
+@app.route('/searchbalance1',methods= ["GET","POST"])
+def search_bal1():
+    return render_template("test_search.html")
+@app.route('/searchbymonth',methods = ["GET","POST"])
+def search_bymonth():
+    mon = request.form.get("monthly")
+    if mon == "january":
+        mon1 = 1
+    elif mon == "febraury":
+        mon1 = 2
+    elif mon == "march":
+        mon1 = 3   
+    elif mon == "april":
+        mon1 = 4
+    elif mon == "may":
+        mon1 = 5
+    elif mon == "june":
+        mon1 = 6
+    elif mon == "july":
+        mon1 = 7
+    elif mon == "august":
+        mon1 = 8
+    elif mon == "september":
+        mon1 = 9
+    elif mon == "october":
+        mon1 = 10
+    elif mon == "november":
+        mon1 = 11
+    elif mon == "december":
+        mon1 = 12
+    allinone =  db.execute("select custumer.id,name,actualdate,paiddate,feepaid,modeofpayement,remarks,balance from custumer join fee on custumer.id = fee.id where month = :month ",{"month":mon1}).fetchall()        
+    return render_template("test_search2.html",every = allinone)
+@app.route('/searchbytotbal',methods = ["GET","POST"])
+def search_bytotbal():
+    test = request.form.get("searchname")
+    if test == 'total' or test == 'TOTAL':
+        t1 = db.execute("select custumer.id as id,name,sum(balance) as maxy from fee join custumer on fee.id = custumer.id group by fee.id").fetchall()
+        return render_template("search_tot_bal.html",insert = t1)
+
+@app.route('/searchbydate',methods = ["GET","POST"])
+def search_bydate():
+    return render_template('search_by_date.html')
+'''@app.route('/searchbydate1',methods = ["GET","POST"])
+def search_bydate1():
+    searchdate = request.form.get("doj")'''
+
+@app.route('/searchbyroom',methods = ["GET","POST"])
+def search_byroom():
+    return render_template("roomname.html")
+@app.route('/searchbyroom1',methods = ["GET","POST"])
+def search_byroom1():
+    roomno = request.form.get('searchname')
+    count = db.execute("select count(*) from custumer where room = :room",{"room":int(roomno)}).fetchone()
+    insert = db.execute("select * from custumer where room = :room",{"room":int(roomno)}).fetchall()
+    return render_template('roomname1.html',insert = insert,count = count)
+
 if __name__ == "__main__":
     app.run(debug=True)

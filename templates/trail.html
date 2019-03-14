@@ -49,13 +49,15 @@
    	<option>101 --> {{R101}}</option><option>102 --> {{R102}}</option><option>103 --> {{R103}}</option><option>201 --> {{R201}}</option><option>202 --> {{R202}}</option><option>203 --> {{R203}}</option>
    	<option>301 --> {{R301}}</option><option>302 --> {{R302}}</option><option>303 --> {{R303}}</option>
    </select></span><input type="number" name = "room" placeholder="Room" style ="width: 60px"><br><br>
-   <div style ="text-align: center;">Packages :<select name="fee_package" style="width: 180px">
+   <span style ="text-align: center;">Packages :<select name="fee_package" style="width: 180px">
    	   	<option>1</option>
    	   	<option>6</option>
    	   	<option>12</option>
-   	   </select></div><br>
+   	   </select></span>
+   	<span class="radius1"> vehicle no:<input type="text" name = "v_no" placeholder="vehicle no" class = "radius"></span><br><br>   
    <span style="text-align: center;margin-left: 60px"><button style = "text-align: center;">Submit</button></span>
-	<!--<span style = "text-align: right;margin-left: 200px">image : <input type = "text" name = "Image" placeholder="Image" style="width:70px;height: 70px;text-align:center;"></span>-->
+    <span style = "text-align: right;margin-left: 200px"><form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload"> <!--<label for="fileupload"></label> <br><input type="image" src="/wp-content/uploads/sendform.png" alt="Submit" width="100"> --></form></span>
+
 	
 </form>
 </body>

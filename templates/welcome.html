@@ -78,7 +78,7 @@ list-style: none;
 	<li><a href = "#">FEE DETAILS</a>
 		<ul>
 			<li><a href = "{{ url_for('add_fee') }}">ADD FEE</a></li>
-			<li><a href = "#">UPDATE FEE</a></li>
+			<li><a href = "{{ url_for('upfe') }}">UPDATE FEE</a></li>
 			<li><a href = "#">MONTH WISE LIST</a></li>
 			<li><a href = "#">INFORMATION</a></li>
 		</ul>
@@ -87,8 +87,9 @@ list-style: none;
 	<li><a href = "#">SEARCH CUSTUMER</a>
 		<ul>
             	<li><a href="{{ url_for('by_name') }}">SEARCH BY NAME</a></li>
-            	<li><a href="#"> SEARCH BY BALANCE</a></li>
-            	<li><a href="#">SEARCH BY DATE</a></li>
+            	<li><a href="{{url_for('search_bal1') }}"> SEARCH BY BALANCE</a></li>
+            	<li><a href="{{ url_for('search_bydate') }}">SEARCH BY DATE</a></li>
+            	<li><a href="{{ url_for('search_byroom') }}">SEARCH BY ROOM</a></li>
             	<li><a href="{{ url_for('search') }}">SEARCH ALL</a></li>
             </ul>
 

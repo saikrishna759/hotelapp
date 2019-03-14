@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ffeess</title>
+	<style>
+		span{
+			
+			color:blue;
+			font-size: 20px;
+			list-style-position: all;
+		}
+		div{
+			
+			color:green;
+			font-size: 20px;
+			order: all;
+		}
+			table {
+    font-family: arial, sans-serif;
+    border-collapse:collapse ;
+    width: 30%;
+}
+
+td, th {
+    border:1px solid #dddddd ;
+    text-align: left;
+    padding: 10px;
+    spacing: 200px;
+}
+table#t01 {
+    width: 50%;    
+    background-color: #ffffff;
+}
+h1{ background-color:powderblue;}
+	</style>
+</head>
+<body>
+     
+	    <table id ="t01" style="margin-left: 200px">
+	    <tr>
+	       <th style="color: red">ID</th>
+	       <th style="color: red" >NAME</th>
+	       <th style="color: red">TOTAL BALANCE</th>
+	       <th style="color: red">IMAGE</th>
+	    </tr>
+	    {% for nam in insert %}
+         {% if nam.maxy %}
+
+	      <tr>   	
+	       <tr>   <th style="color: green">{{nam.id}}</th><th style="color: green">{{nam.name}}</th><th style="color: green">{{nam.maxy}}</th><th style="color: green"><img src = "{{nam.imag}}" alt = "{{nam.name}}" width="10%" height="50%"></th></tr>
+           
+          </tr>
+         {% endif %}
+        {% endfor %}     
+  
+
+        </table>  
+   
+          
+
+</body>
+</html>

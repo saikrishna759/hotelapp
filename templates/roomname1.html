@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ffeess</title>
+	<style>
+		span{
+			
+			color:blue;
+			font-size: 20px;
+			list-style-position: all;
+		}
+		div{
+			
+			color:green;
+			font-size: 20px;
+			order: all;
+		}
+			table {
+    font-family: arial, sans-serif;
+    border-collapse:collapse ;
+    width: 30%;
+}
+
+td, th {
+    border:1px solid #dddddd ;
+    text-align: left;
+    padding: 10px;
+    spacing: 200px;
+}
+table#t01 {
+    width: 50%;    
+    background-color: #ffffff;
+}
+h1{ background-color:powderblue;}
+	</style>
+</head>
+<body>
+	<marquee  scrollamount="30"><h2 style="color: red;background-color: yellow;text-align: center"> TOATAL {{count[0]}} MEMBERS </h2></marquee>
+	{% for nam in insert %}
+     
+       <div style="text-align: center;margin-right: 250px"><img src = "{{nam.imag}}" alt = "{{nam.name}}" width="10%" height="50%"></div>
+	     <table id ="t01" style="margin-left: 200px">
+	    <tr>
+	       <th >DETAILS</th>
+	       <th >RESULTS</th>
+	    </tr>
+	    <tr>   	
+	      <tr>   <th style="color: red">id</th><th style="color: green">{{nam.id}}</th></tr>
+	       <tr>  <th style="color: red">name</th><th style="color: green">{{nam.name}}</th></tr>
+	       <tr>  <th style="color: red">DOJ</th><th style="color: green">{{nam.doj}}</th></tr>
+	       <tr>  <th style="color: red">student_no</th><th style="color: green">{{nam.student_no}}</th></tr>
+	       <tr>  <th style="color: red">parent_no</th><th style="color: green">{{nam.parent_no}}</th></tr>
+	       <tr>  <th style="color: red">room</th><th style="color: green">{{nam.room}}</th></tr>
+           <tr>  <th style="color: red">advance</th><th style="color: green">{{nam.advance}}</th></tr>
+           <tr>  <th style="color: red">package</th><th style="color: green">{{nam.package}}</th></tr>
+           
+        </tr>
+        </table>  
+         <form action="{{ url_for('display_search2') }}" method="post">
+         	<div style="margin-left: 500px"><input hidden="hidden" type="number" name="select123" placeholder="type {{nam.id}}" value="{{nam.id}}" style="width: 70px">
+         	<button>select</button></div>
+         </form>
+         <div style="border-radius: 10px;border-top: 5px;border-color: yellow"><hr></div>
+     
+    {% endfor %}     
+
+</body>
+</html>

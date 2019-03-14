@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ffeess</title>
+	<style>
+		span{
+			
+			color:blue;
+			font-size: 20px;
+			list-style-position: all;
+		}
+		div{
+			
+			color:green;
+			font-size: 20px;
+			order: all;
+		}
+			table {
+    font-family: arial, sans-serif;
+    border-collapse:collapse ;
+    width: 30%;
+}
+
+td, th {
+    border:1px solid #dddddd ;
+    text-align: left;
+    padding: 10px;
+    spacing: 200px;
+    text-align: center;
+}
+table#t01 {
+    width: 50%;    
+    background-color: #ffffff;
+}
+table#t02 {
+    width: 100%;    
+    background-color: #ffffff;
+}
+h1{ background-color:powderblue;}
+	</style>
+</head>
+<body>
+        <table id ="t02" style="margin-left: 20px">
+	    <tr>
+	       <th>ID</th>
+	       <th>NAME</th>
+	       <th>ACTUALDATE</th>
+	       <th>PAIDDATE</th>
+	       <th>FEEPAID</th>
+	       <th>BALANCE</th> 
+	       <th>PAYMODE</th>
+	       <th>REMARKS</th>
+	    </tr>
+        {% for m in every %}
+        
+         {% if m.balance %}
+
+	      <tr>   	
+	       <tr>   <th style="color: red">{{m.id}}</th><th style="color: green">{{m.name}}</th><th style="color: green">{{m.actualdate}}</th><th style="color: green">{{m.paiddate}}</th><th style="color: green">{{m.feepaid}}</th><th style="color: green">{{m.balance}}</th><th style="color: green">{{m.modeofpayement}}</th><th style="color: green">{{m.remarks}}</th></tr>
+	      </tr>
+	     {% endif %}
+	    {% endfor %} 
+        </tr>
+        </table> 
+
+</body>
+</html>

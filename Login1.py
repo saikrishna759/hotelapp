@@ -12,7 +12,7 @@ engine = create_engine( 'sqlite:///fresh_hostel_project.db', echo=False)
 db = scoped_session(sessionmaker(bind=engine))
 username1 = "saikrishna"
 password1 = "saikrishna"
-dl = []
+
 class loginform(FlaskForm):
     username = StringField('username',validators = [InputRequired('username is required')])
     password = PasswordField('password',validators = [InputRequired('password is required')])
@@ -108,9 +108,10 @@ def insert():
     pack123 = request.form.get("fee_package")
     vno = request.form.get("v_no")
     date2 = datetime.strptime(DOJ, "%Y-%m-%d")
+    dl = []
     for i in range(int(date2.month),int(date2.month)+13):
 
-      if int(i/12) > 0 and i%12 > 0:
+      if int(i/12) > 0 and i%12 >= 0 and i>12:
         if  i%12==2 and date2.day>28:
             dl.append(date(date2.year+1,i%12,28))
         else:
@@ -142,7 +143,8 @@ def search():
     return render_template("insert.html",insert = inserted)
 @app.route("/add_fee",methods=["GET","POST"])    
 def add_fee():
-    return render_template('fees1.html')
+    names = db.execute("select name from custumer").fetchall()
+    return render_template('fees1.html',nam = names)
 @app.route("/addfee",methods=["GET","POST"])    
 def add_fee1():
     feename1 = request.form.get("feename")
@@ -298,7 +300,7 @@ def upcus2():
     date2 = datetime.strptime(DOJ, "%Y-%m-%d")
     dp = []
     for i in range(int(date2.month),int(date2.month)+13):
-      if int(i/12) > 0 and i%12 > 0:
+      if int(i/12) > 0 and i%12 > 0 and i>12:
         if  i%12==2 and date2.day>28:
             dp.append(date(date2.year+1,i%12,28))
         else:
@@ -402,7 +404,7 @@ def search_bymonth():
         mon1 = 11
     elif mon == "december":
         mon1 = 12
-    allinone =  db.execute("select custumer.id,name,actualdate,paiddate,feepaid,modeofpayement,remarks,balance from custumer join fee on custumer.id = fee.id where month = :month ",{"month":mon1}).fetchall()        
+    allinone = db.execute("select custumer.id,name,actualdate,paiddate,feepaid,modeofpayement,remarks,balance from custumer join fee on custumer.id = fee.id where month = :month ",{"month":mon1}).fetchall()        
     return render_template("test_search2.html",every = allinone)
 @app.route('/searchbytotbal',methods = ["GET","POST"])
 def search_bytotbal():
@@ -411,12 +413,18 @@ def search_bytotbal():
         t1 = db.execute("select custumer.id as id,name,sum(balance) as maxy from fee join custumer on fee.id = custumer.id group by fee.id").fetchall()
         return render_template("search_tot_bal.html",insert = t1)
 
+@app.route('/searchbydate1',methods = ["GET","POST"])
+def search_bydate1():
+    return render_template('search_by_date.html')
 @app.route('/searchbydate',methods = ["GET","POST"])
 def search_bydate():
-    return render_template('search_by_date.html')
-'''@app.route('/searchbydate1',methods = ["GET","POST"])
-def search_bydate1():
-    searchdate = request.form.get("doj")'''
+    #searchdate = request.form.get("doj")
+    #date21 = datetime.strptime(DOJ, "%Y-%m-%d")
+
+    allones = db.execute("select * from custumer join fee on custumer.id = fee.id where  strftime('%d','now') - strftime('%d',actualdate) > 0 and strftime('%m',actualdate) = strftime('%m','now') and feepaid = 0").fetchall()
+    al = db.execute("select count(*) from custumer join fee on custumer.id = fee.id where  strftime('%d','now') - strftime('%d',actualdate) > 0 and strftime('%m',actualdate) = strftime('%m','now') and feepaid = 0").fetchone()
+
+    return render_template("allones.html",allone = allones,count = al)
 
 @app.route('/searchbyroom',methods = ["GET","POST"])
 def search_byroom():

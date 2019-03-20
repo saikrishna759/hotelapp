@@ -53,7 +53,8 @@ h1{ background-color:powderblue;}
 	    </tr>
         {% for m in every %}
         
-         {% if m.balance %}
+         {% if m.balance or not m.feepaid %}
+         	
 
 	      <tr>   	
 	       <tr>   <th style="color: red">{{m.id}}</th><th style="color: green">{{m.name}}</th><th style="color: green">{{m.actualdate}}</th><th style="color: green">{{m.paiddate}}</th><th style="color: green">{{m.feepaid}}</th><th style="color: green">{{m.balance}}</th><th style="color: green">{{m.modeofpayement}}</th><th style="color: green">{{m.remarks}}</th></tr>

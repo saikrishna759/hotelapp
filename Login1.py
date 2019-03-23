@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+import re
 from datetime import date,datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
@@ -121,11 +122,6 @@ def insert():
             dl.append(date(date2.year,i,28))
         else:
             dl.append(date(date2.year,i,date2.day))
-
-
-               
-    #imag1 = request.form.get("Image")
-    #img = "/static/IMAGES/"+str(imag1)+".jpg"
    
     prev_id1 = db.execute("select max(id)+1 from custumer").fetchone()
     if prev_id1 == None:
@@ -436,5 +432,91 @@ def search_byroom1():
     insert = db.execute("select * from custumer where room = :room",{"room":int(roomno)}).fetchall()
     return render_template('roomname1.html',insert = insert,count = count)
 
+########MANAGEMENT#########
+class grocery():
+    def __init__(self):
+        self.daty = datetime.now()
+       
+    def evaluate(self,exp):
+        return eval(exp)
+
+    def filter(self,exp):
+       return re.findall(r'\d{1,4}', str(exp))
+
+vegt = grocery()  #####object declaration#####
+kirana = grocery()
+@app.route('/groceries1',methods = ["GET","POST"])
+def groceries1():
+    return render_template("groceries.html")
+@app.route('/veg1',methods = ["GET","POST"])
+def veg():
+    pric = db.execute("select price from groceries").fetchall()
+    return render_template('veg1.html',n=30,pric = vegt.filter(pric))
+@app.route('/veg2',methods = ["GET","POST"])
+def veg1():
+    lists = request.form.get('list')
+    val = request.form.get('select123')
+    val_test = db.execute("select max(main_id) from groceries").fetchone()  
+
+    if int(val) <= int(val_test[0]):
+        db.execute("update groceries set price=:price where main_id=:main_id",{"price":vegt.evaluate(lists),"main_id":val})
+        db.commit()
+    else:
+        db.execute("insert into groceries values(:main_id,:date,:price)",{"main_id":val,"date":vegt.daty,"price":vegt.evaluate(lists)})
+        db.commit()
+        if int(val) == 30:
+            filedate = datetime.now()
+            real = re.split('\\s+',str(filedate))
+            tweets = open("E:\\github\\hotelapp\\static\\FILES\\GROCERY\\"+str(real[0])+".txt", "w")
+            fromdb = db.execute("select * from groceries").fetchall()
+            for row in fromdb:
+                x = re.split('\\s+',str(row[1]))
+                print(row[0],x[0],row[2],file=tweets)
+                
+            tweets.close()
+            db.execute("delete from groceries where main_id > 0")
+            db.commit() 
+    return render_template("welcome.html")
+
+  #####object2 creation #####
+@app.route('/kirana1',methods = ["GET","POST"])
+def kir():
+    pric = db.execute("select price from groceries2").fetchall()
+    return render_template('kirana1.html',n=30,pric = kirana.filter(pric))
+@app.route('/kirana2',methods = ["GET","POST"])
+def kirana1():
+    lists = request.form.get('list')
+    val = request.form.get('select123')
+    val_test = db.execute("select max(main_id) from groceries2").fetchone()  
+
+    if int(val) <= int(val_test[0]):
+        db.execute("update groceries2 set price=:price where main_id=:main_id",{"price":kirana.evaluate(lists),"main_id":val})
+        db.commit()
+    else:
+        db.execute("insert into groceries2 values(:main_id,:date,:price)",{"main_id":val,"date":kirana.daty,"price":kirana.evaluate(lists)})
+        db.commit()
+        if int(val) == 30:
+            filedate = datetime.now()
+            real = re.split('\\s+',str(filedate))
+            tweets = open("E:\\github\\hotelapp\\static\\FILES\\KIRANA\\"+str(real[0])+".txt", "w")
+            fromdb = db.execute("select * from groceries2").fetchall()
+            for row in fromdb:
+                x = re.split('\\s+',str(row[1]))
+                print(row[0],x[0],row[2],file=tweets)
+                
+            tweets.close()
+            db.execute("delete from groceries2 where main_id > 0")
+            db.commit() 
+    return render_template("welcome.html")
+class bulk:
+    def __init__(self):
+        pass
+
+
+vegbulk = bulk()        
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+

@@ -293,6 +293,8 @@ def upcus2():
     Room = request.form.get("room")
     pack123 = request.form.get("fee_package")
     vno = request.form.get("v_no")
+    img1 = request.form.get('fileupload')
+    img = "/static/IMAGES/"+str(img1)
     date2 = datetime.strptime(DOJ, "%Y-%m-%d")
     dp = []
     for i in range(int(date2.month),int(date2.month)+13):
@@ -306,7 +308,7 @@ def upcus2():
             dp.append(date(date2.year,i,28))
         else:
             dp.append(date(date2.year,i,date2.day))
-    db.execute("update custumer set name=:name,f_name=:f_name,doj=:doj,student_no=:student_no,Adress=:Adress,college=:college,age=:age,aadhar=:aadhar,parent_no=:parent_no,advance=:advance,room=:room,email=:email,package=:package,vehicle_no=:vehicle_no where id=:id",{"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"package":int(pack123),"vehicle_no":vno,"id":id8})
+    db.execute("update custumer set name=:name,f_name=:f_name,doj=:doj,student_no=:student_no,Adress=:Adress,college=:college,age=:age,aadhar=:aadhar,parent_no=:parent_no,advance=:advance,room=:room,email=:email,package=:package,vehicle_no=:vehicle_no,imag=:imag where id=:id",{"name":sname,"f_name":fname,"doj":DOJ,"student_no":sphone,"Adress":Address,"college":college,"age":Age,"aadhar":Aadhar,"parent_no":fphone,"advance":Advance,"room":Room,"email":Email,"package":int(pack123),"vehicle_no":vno,"imag":img,"id":id8})
     for i in range(0,12):
         db.execute("update fee set actualdate=:actualdate,month=:month where id=:id and test=:test",{"actualdate":dp[i],"month":dp[i].month,"id":id8,"test":i+1})
         db.commit()
@@ -417,7 +419,7 @@ def search_bydate():
     #searchdate = request.form.get("doj")
     #date21 = datetime.strptime(DOJ, "%Y-%m-%d")
 
-    allones = db.execute("select * from custumer join fee on custumer.id = fee.id where  strftime('%d','now') - strftime('%d',actualdate) > 0 and strftime('%m',actualdate) = strftime('%m','now') and feepaid = 0").fetchall()
+    allones = db.execute("select * from custumer join fee on custumer.id = fee.id where  strftime('%d','now') - strftime('%d',actualdate) > 0 and strftime('%m',actualdate) = strftime('%m','now') and feepaid = 0 order by actualdate").fetchall()
     al = db.execute("select count(*) from custumer join fee on custumer.id = fee.id where  strftime('%d','now') - strftime('%d',actualdate) > 0 and strftime('%m',actualdate) = strftime('%m','now') and feepaid = 0").fetchone()
 
     return render_template("allones.html",allone = allones,count = al)
@@ -508,13 +510,7 @@ def kirana1():
             db.execute("delete from groceries2 where main_id > 0")
             db.commit() 
     return render_template("welcome.html")
-class bulk:
-    def __init__(self):
-        pass
-
-
-vegbulk = bulk()        
-
+     
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -27,7 +27,7 @@
 	}	
 </style>
 </head>
-<body>
+<body id = "container" style = "background-color: green">
 	<h1 style = "color:green;text-align: center;"> STUDENT APPLICATION</h1>
 <form action = "{{ url_for('upcus2') }}" method = "post">
     
@@ -54,8 +54,9 @@
    	   	<option>6</option>
    	   	<option>12</option>
    	   </select></span>
-   	<span class="radius1"> vehicle no:<input type="text" name = "v_no" placeholder="vehicle no" value = {{det.vehicle_no }}class = "radius"></span><br><br>      
+   	<span class="radius1"> vehicle no:<input type="text" name = "v_no" placeholder="vehicle no" value = {{det.vehicle_no}} class = "radius"></span><br><br>      
    <span style="text-align: center;margin-left: 60px"><button style = "text-align: center;">Submit</button></span>
+  <! <span style = "text-align: right;margin-left: 200px"><form action="myform.cgi"> <input type="file" name="fileupload" value = {{det.imag}} id="fileupload"></form></span>
 	<!--<span style = "text-align: right;margin-left: 200px">image : <input type = "text" name = "Image" placeholder="Image" style="width:70px;height: 70px;text-align:center;"></span>-->
 	
 </form>

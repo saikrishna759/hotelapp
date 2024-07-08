@@ -51,7 +51,7 @@
     "fs-extra": "7.0.1",
     "http-call": "5.2.3",
     "netrc-parser": "3.1.6",
-    "semver": "5.6.0",
+    "semver": "5.7.2",
     "tslib": "1.9.3",
     "uuid": "3.3.2"
   },
